@@ -1,0 +1,32 @@
+# in order to create CI - automated testing. These folder structure to be folloewed
+#.github --> workflows --> <name>.yaml
+#coding will be done in this yaml file
+
+# here in this file , coding are done in workflow basis
+
+name : first CI test
+on:
+  push:
+    branches:
+      - CI_pipeline # this workflow will be triggered when i try to push to CI_pipeline bramch
+      - Main # this workflow will be triggered when i try to push to Main bramch
+
+jobs : 
+  job1 : 
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code # "checkout" refers to retrieving the latest code from repository and making it available in your workflow environment.
+        uses: actions/checkout@v4
+
+      - name: Install Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.9'
+
+      - name: Install dependencies
+        run: | # this symbol is used to run below lines sequenclly
+          python -m pip install --upgrade pip
+          pip install -r requirements.txt
+      - name : Run test
+        run : |
+          pytest
