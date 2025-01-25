@@ -8,7 +8,6 @@ name : first CI test
 on:
   push:
     branches:
-      - CI_pipeline # this workflow will be triggered when i try to push to CI_pipeline bramch
       - Main # this workflow will be triggered when i try to push to Main bramch
 
 jobs : 
@@ -16,6 +15,7 @@ jobs :
     runs-on: ubuntu-latest
     steps:
       - name: Checkout code # "checkout" refers to retrieving the latest code from repository and making it available in your workflow environment.
+        # checkout basically copies code from folder to ubuntu maching
         uses: actions/checkout@v4
 
       - name: Install Python
@@ -30,3 +30,21 @@ jobs :
       - name : Run test
         run : |
           pytest
+
+  job2 :
+      needs : job1
+      runs-on : ubuntu-latest
+      steps : 
+        - name: Checkout code 
+          uses: actions/checkout@v4
+        - name: Login to DockerHub
+          uses: docker/login-action@v3 # this action logins to dockerhub
+            with : 
+              username : ${{secrets.docker_username}}
+              password : ${{secrets.docker_password}}
+        - name : build docker image and push to docker hub
+          uses : docker/build-push-action@v6
+            with:   
+              push : true
+              tags : trtejas/cd_ci_pipeline:latest
+
