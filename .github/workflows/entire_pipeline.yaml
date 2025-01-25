@@ -44,7 +44,7 @@ jobs :
             password : ${{secrets.docker_password}}
         - name : build docker image and push to docker hub
           uses : docker/build-push-action@v6
-            with:   
-              push : true
-              tags : trtejas/cd_ci_pipeline:latest # repo in dockerhub where image should be saved
+          with:   
+            push : true
+            tags : trtejas/cd_ci_pipeline:latest # repo in dockerhub where image should be saved
 
