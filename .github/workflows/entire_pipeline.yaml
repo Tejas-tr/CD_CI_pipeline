@@ -8,7 +8,7 @@ name : first CI test
 on:
   push:
     branches:
-      - Main # this workflow will be triggered when i try to push to Main bramch
+      - main # this workflow will be triggered when i try to push to Main bramch
 
 jobs : 
   job1 : 
