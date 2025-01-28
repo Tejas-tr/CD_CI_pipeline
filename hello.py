@@ -12,6 +12,19 @@ def ping():
 def ratio():
     return {'message': 'hello world'}
 
+@app.route('/', methods=['GET'])
+def home():
+    return '''
+    <html>
+        <head>
+            <title>Congratulation on successful CI/CD completion</title>
+        </head>
+        <body>
+            <h1>Congratulation on successful CI/CD completion, Good going guys!!</h1>
+            <p>MLOPS Engineer on the rise!!.</p>
+        </body>
+    </html>
+    '''
 
 # run above code in terminal and use this code to run flask --app hello.py run
 # open this link http://127.0.0.1:5000 available in terminal 

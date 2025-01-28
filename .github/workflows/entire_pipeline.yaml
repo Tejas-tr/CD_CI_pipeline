@@ -80,7 +80,7 @@ jobs :
           id: task-def
           uses: aws-actions/amazon-ecs-render-task-definition@v1
           with:
-            task-definition: task_pipeline-revision1.json # add name provided in aws
+            task-definition: task_pipeline-revision1.json # add service--> tag--> json file name provided in aws
             container-name: docker_loan_pred # image name provided in aws
             image: ${{ steps.build-image.outputs.image }}
     
