@@ -69,7 +69,7 @@ jobs :
           id: build-image
           env:
             ECR_REGISTRY: ${{ steps.login-ecr.outputs.registry }}
-            ECR_REPOSITORY: jan22_ecr_flask_live # same as repos name created in ECR
+            ECR_REPOSITORY: repo_pipeline # same as repos name created in ECR
             IMAGE_TAG: ${{ github.sha }}
           run: |
             docker build -t $ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG .
@@ -81,13 +81,13 @@ jobs :
           uses: aws-actions/amazon-ecs-render-task-definition@v1
           with:
             task-definition: task-flask-jan22-2025-live-revision1.json
-            container-name: flask-container-jan22-2025-live # image name provided in aws
+            container-name: docker_loan_pred # image name provided in aws
             image: ${{ steps.build-image.outputs.image }}
     
         - name: Deploy Amazon ECS task definition
           uses: aws-actions/amazon-ecs-deploy-task-definition@v2
           with:
             task-definition: ${{ steps.task-def.outputs.task-definition }}
-            service: flask-service-jan22-2025-live # service name created in ecs
-            cluster: flask-cluster-jan22-2025-live # es cluster name provided in aws
+            service: service_pipeline # service name created in ecs
+            cluster: cluster_pipeline # es cluster name provided in aws
             wait-for-service-stability: true
